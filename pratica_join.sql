@@ -52,3 +52,27 @@ JOIN companies
 ON experiences."companyId" = companies.id
 WHERE users.id = 50
 AND experiences."endDate" IS NULL;
+
+/* D1 */
+SELECT
+  schools.id,
+  schools.name AS school,
+  courses.name AS course,
+  companies.name AS company,
+  roles.name AS "role",
+FROM schools
+JOIN educations
+ON educations."schoolId" = schools.id
+JOIN users
+ON users.id = educations."userId"
+JOIN applicants
+ON applicants."userId" = users.id
+JOIN jobs
+ON jobs.id = applicants."jobId"
+JOIN companies
+ON companies.id = jobs."companyId"
+JOIN roles
+ON roles.id = jobs."roleId"
+WHERE roles.name = 'Software Engineer'
+AND companies.id = 10
+AND jobs.active = true;
